@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_220dp">
+
+    <TextView
+        android:id="@+id/timeOfDayHourListItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_20dp"
+        android:layout_marginTop="@dimen/margin_10dp"
+        android:text="@string/label_time_of_day"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/weatherImageHourListItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10dp"
+        android:maxWidth="@dimen/width_50dp"
+        android:maxHeight="@dimen/height_50dp"
+        app:layout_constraintStart_toStartOf="@id/timeOfDayHourListItem"
+        app:layout_constraintTop_toBottomOf="@id/timeOfDayHourListItem" />
+
+    <TextView
+        android:id="@+id/weatherDescriptionHourListItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10dp"
+        android:text="Ovecast"
+        app:layout_constraintStart_toStartOf="@id/weatherImageHourListItem"
+        app:layout_constraintTop_toBottomOf="@id/weatherImageHourListItem" />
+
+    <TextView
+        android:id="@+id/chanceOfRainHourListItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10dp"
+        android:text="@string/label_chance_of_rain"
+        app:layout_constraintStart_toStartOf="@id/weatherDescriptionHourListItem"
+        app:layout_constraintTop_toBottomOf="@id/weatherDescriptionHourListItem" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/informationGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="158dp" />
+
+    <TextView
+        android:id="@+id/temperatureHourListItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_7dp"
+        android:text="@string/label_temperature_text"
+        app:layout_constraintStart_toEndOf="@id/informationGuideline"
+        app:layout_constraintTop_toBottomOf="@id/timeOfDayHourListItem" />
+
+    <TextView
+        android:id="@+id/windSpeedHourListItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10dp"
+        android:text="@string/label_wind_speed"
+        app:layout_constraintStart_toStartOf="@id/informationGuideline"
+        app:layout_constraintTop_toBottomOf="@id/temperatureHourListItem" />
+
+    <TextView
+        android:id="@+id/pressureHourListItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10dp"
+        android:text="@string/label_pressure"
+        app:layout_constraintStart_toStartOf="@id/informationGuideline"
+        app:layout_constraintTop_toBottomOf="@id/windSpeedHourListItem" />
+
+    <TextView
+        android:id="@+id/feelsLikeHourListItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10dp"
+        android:text="@string/label_feels_like"
+        app:layout_constraintStart_toStartOf="@id/pressureHourListItem"
+        app:layout_constraintTop_toBottomOf="@id/pressureHourListItem" />
+
+    <TextView
+        android:id="@+id/humidityHourListItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10dp"
+        android:text="@string/label_humidity"
+        app:layout_constraintStart_toStartOf="@id/feelsLikeHourListItem"
+        app:layout_constraintTop_toBottomOf="@id/feelsLikeHourListItem" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <string name="search_cities">Search a City…</string>
+    <string name="label_no_more_cities">No cities found…</string>
+
+    <string name="label_temperature">%1$s\u2103 | %2$s\u2109</string>
+    <string name="label_time_of_day">Time of Day: %1$s</string>
+    <string name="label_chance_of_rain">Chance of Rain: %1$s%%</string>
+    <string name="label_temperature_text">Temperature: %1$s</string>
+    <string name="label_wind_speed">Wind Speed: %1$s Kmph | %2$s Miles</string>
+    <string name="label_pressure">Pressure: %1$s mbar</string>
+    <string name="label_feels_like">Feels Like: %1$s</string>
+    <string name="label_humidity">Humidity: %1$s%%</string>
+
+
+</resources>

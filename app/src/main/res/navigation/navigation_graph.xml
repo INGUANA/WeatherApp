@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/searchAreasFragment">
+
+    <fragment
+        android:id="@+id/searchAreasFragment"
+        android:name="com.inguana.weatherapp.searchAreasFragment.SearchAreasFragment"
+        android:label="SearchAreasFragment"
+        tools:layout="@layout/search_areas_fragment">
+        <action
+            android:id="@+id/action_searchAreasFragment_to_fiveDaysForecastFragment"
+            app:destination="@id/fiveDaysForecastFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hourForecastFragment"
+        android:name="com.inguana.weatherapp.hourForecastFragment.HourForecastFragment"
+        android:label="HourForecastFragment"
+        tools:layout="@layout/hour_forecast_fragment">
+        <argument
+            android:name="selectedDay"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/fiveDaysForecastFragment"
+        android:name="com.inguana.weatherapp.fiveDaysForecastFragment.FiveDaysForecastFragment"
+        android:label="FiveDaysForecastFragment"
+        tools:layout="@layout/five_day_forecast_fragment">
+        <action
+            android:id="@+id/action_fiveDaysForecastFragment_to_hourForecastFragment"
+            app:destination="@id/hourForecastFragment" />
+    </fragment>
+
+
+</navigation>
