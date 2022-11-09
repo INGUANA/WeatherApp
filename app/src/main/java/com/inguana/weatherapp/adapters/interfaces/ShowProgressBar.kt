@@ -1,5 +1,5 @@
-package com.inguana.weatherapp.adapters.interfaces;
+package com.inguana.weatherapp.adapters.interfaces
 
-public interface ShowProgressBar {
-    void showProgressBar(boolean isVisible);
+interface ShowProgressBar {
+    fun showProgressBar(isVisible: Boolean)
 }

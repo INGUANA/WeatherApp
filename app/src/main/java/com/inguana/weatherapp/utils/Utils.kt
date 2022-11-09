@@ -1,84 +1,75 @@
-package com.inguana.weatherapp.utils;
+package com.inguana.weatherapp.utils
 
-import static com.inguana.weatherapp.utils.Constants.PREFS_NAME;
+import android.content.Context
+import com.inguana.weatherapp.network.networkModel.response.Request
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
-import com.inguana.weatherapp.network.networkModel.response.Request;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-
-public class Utils {
-
-    public static void setPreference(Context context, String key, Set<String> value) {
-
-        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.clear();
-        editor.putStringSet(key, value);
-        editor.apply();
+object Utils {
+    fun setPreference(context: Context, key: String, value: Set<String?>?) {
+        val settings = context.getSharedPreferences(Constants.PREFS_NAME, 0)
+        val editor = settings.edit()
+        editor.clear()
+        editor.putStringSet(key, value)
+        editor.apply()
     }
 
-    public static Set<String> getPreference(Context context, String key) {
-        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-        return settings.getStringSet(key, new HashSet<String>());
+    fun getPreference(context: Context, key: String): MutableSet<String?>? {
+        val settings = context.getSharedPreferences(Constants.PREFS_NAME, 0)
+        return settings.getStringSet(key, HashSet())
     }
 
-    public static boolean isFavourite(Set<String> favouriteSet, String areaName) {
-        boolean result;
-        if (favouriteSet != null && !favouriteSet.isEmpty()) {
-            long count = favouriteSet.stream()
-                    .filter(Favourite -> Favourite.equals(areaName))
-                    .count();
-            result = count == 1;
+    @kotlin.jvm.JvmStatic
+    fun isFavourite(favouriteSet: Set<String?>?, areaName: String?): Boolean {
+        val result: Boolean = if (favouriteSet != null && favouriteSet.isNotEmpty()) {
+            val count = favouriteSet.stream()
+                .filter { Favourite: String? -> Favourite == areaName }
+                .count()
+            count == 1L
         } else {
-            result = false;
+            false
         }
-        return result;
+        return result
     }
 
-    public static String getDayFromDate(String dateString) {
-        String result = "";
+    @kotlin.jvm.JvmStatic
+    fun getDayFromDate(dateString: String?): String {
+        var result = ""
         if (dateString != null && !dateString.isEmpty()) {
-            try {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-                result = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(sdf.parse(dateString));
-
-            } catch (Exception e) {
-                result = "";
+            result = try {
+                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                SimpleDateFormat("EEEE", Locale.ENGLISH).format(sdf.parse(dateString))
+            } catch (e: Exception) {
+                ""
             }
         }
-        return result;
+        return result
     }
 
-    public static String convertToReadableTime(String time) {
-        String result;
+    @kotlin.jvm.JvmStatic
+    fun convertToReadableTime(time: String?): String {
+        var time = time
+        val result: String
         do {
-            if (time.length() >= 4)
-                break;
-            time = "0" + time;
-        } while (time.length() <= 4);
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("HHmm", Locale.ENGLISH);
-            result = new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(sdf.parse(time));
-        } catch (ParseException e) {
-            result = "";
+            if (time!!.length >= 4) break
+            time = "0$time"
+        } while (time!!.length <= 4)
+        result = try {
+            val sdf = SimpleDateFormat("HHmm", Locale.ENGLISH)
+            SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(sdf.parse(time))
+        } catch (e: ParseException) {
+            ""
         }
-        return result;
+        return result
     }
 
-    public static List<Request> convertArrayListToRequestList(List<String> favouriteList) {
-        List<Request> requestsList = new ArrayList<>();
-        for (String favItem : favouriteList) {
-            requestsList.add(new Request("Favourite Area", favItem));
+    @kotlin.jvm.JvmStatic
+    fun convertArrayListToRequestList(favouriteList: List<String?>): MutableList<Request?> {
+        val requestsList: MutableList<Request?> = ArrayList()
+        for (favItem in favouriteList) {
+            requestsList.add(Request("Favourite Area", favItem))
         }
-        return requestsList;
+        return requestsList
     }
 }

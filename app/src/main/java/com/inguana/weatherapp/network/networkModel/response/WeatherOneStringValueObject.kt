@@ -1,25 +1,10 @@
-package com.inguana.weatherapp.network.networkModel.response;
+package com.inguana.weatherapp.network.networkModel.response
 
-public class WeatherOneStringValueObject {
+class WeatherOneStringValueObject(var value: String) {
 
-    private String value;
-
-    public WeatherOneStringValueObject(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    @Override
-    public String toString() {
+    override fun toString(): String {
         return "WeatherOneValueObject{" +
                 "value='" + value + '\'' +
-                '}';
+                '}'
     }
 }

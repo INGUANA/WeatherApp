@@ -1,48 +1,35 @@
-package com.inguana.weatherapp;
+package com.inguana.weatherapp
 
-import static com.inguana.weatherapp.utils.Constants.PREF_FAVOURITE;
+import android.os.Bundle
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import com.inguana.weatherapp.adapters.interfaces.HomeActivityFunctionalities
+import com.inguana.weatherapp.utils.Constants
+import com.inguana.weatherapp.utils.Utils
 
-import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
-
-import com.inguana.weatherapp.adapters.interfaces.HomeActivityFunctionalities;
-import com.inguana.weatherapp.utils.Utils;
-
-import java.util.Set;
-
-public class HomeScreenActivity extends BaseActivity implements HomeActivityFunctionalities {
-
-    private NavController navController;
-
-    private Set<String> favouriteSet;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_screen_activity);
-
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        navController = navHostFragment.getNavController();
-        favouriteSet = Utils.getPreference(this, PREF_FAVOURITE);
+class HomeScreenActivity : BaseActivity(), HomeActivityFunctionalities {
+    private var navController: NavController? = null
+    private var favouriteSet: MutableSet<String?>? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.home_screen_activity)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment?
+        navController = navHostFragment!!.navController
+        favouriteSet = Utils.getPreference(this, Constants.PREF_FAVOURITE)
     }
 
-    @Override
-    public Set<String> getFavouriteSet() {
-        return favouriteSet;
+    override fun getFavouriteSet(): Set<String?>? {
+        return favouriteSet
     }
 
-    @Override
-    public void setFavouriteSet(String favouriteName) {
-        favouriteSet.add(favouriteName);
-        Utils.setPreference(this, PREF_FAVOURITE, favouriteSet);
+    override fun setFavouriteSet(favouriteName: String?) {
+        favouriteSet?.add(favouriteName)
+        Utils.setPreference(this, Constants.PREF_FAVOURITE, favouriteSet)
     }
 
-    @Override
-    public void removeFavouriteSet(String removeName) {
-        favouriteSet.remove(removeName);
-        Utils.setPreference(this, PREF_FAVOURITE, favouriteSet);
+    override fun removeFavouriteSet(removeName: String?) {
+        favouriteSet!!.remove(removeName)
+        Utils.setPreference(this, Constants.PREF_FAVOURITE, favouriteSet)
     }
 }

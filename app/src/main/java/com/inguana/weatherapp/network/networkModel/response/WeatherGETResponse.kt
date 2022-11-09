@@ -1,29 +1,13 @@
-package com.inguana.weatherapp.network.networkModel.response;
+package com.inguana.weatherapp.network.networkModel.response
 
-import com.google.gson.annotations.SerializedName;
-import com.inguana.weatherapp.model.Area;
+import com.google.gson.annotations.SerializedName
+import com.inguana.weatherapp.model.Area
 
-public class WeatherGETResponse {
+class WeatherGETResponse(@field:SerializedName("data") var data: Area) {
 
-    @SerializedName("data")
-    private Area area;
-
-    public WeatherGETResponse(Area area) {
-        this.area = area;
-    }
-
-    public Area getData() {
-        return area;
-    }
-
-    public void setData(Area area) {
-        this.area = area;
-    }
-
-    @Override
-    public String toString() {
+    override fun toString(): String {
         return "WeatherGETResponse{" +
-                "data=" + area +
-                '}';
+                "data=" + data +
+                '}'
     }
 }

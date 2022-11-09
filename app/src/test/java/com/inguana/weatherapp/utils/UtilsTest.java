@@ -1,10 +1,11 @@
 package com.inguana.weatherapp.utils;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import com.inguana.weatherapp.network.networkModel.response.Request;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;

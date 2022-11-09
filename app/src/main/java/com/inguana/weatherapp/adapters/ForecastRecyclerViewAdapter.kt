@@ -1,87 +1,69 @@
-package com.inguana.weatherapp.adapters;
+package com.inguana.weatherapp.adapters
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.inguana.weatherapp.R
+import com.inguana.weatherapp.adapters.interfaces.OnDayListener
+import com.inguana.weatherapp.adapters.viewholders.DayViewHolder
+import com.inguana.weatherapp.model.WeatherDay
+import com.inguana.weatherapp.utils.Utils
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.inguana.weatherapp.R;
-import com.inguana.weatherapp.adapters.interfaces.OnDayListener;
-import com.inguana.weatherapp.adapters.viewholders.DayViewHolder;
-import com.inguana.weatherapp.model.WeatherDay;
-import com.inguana.weatherapp.utils.Utils;
-
-import java.util.List;
-
-public class ForecastRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    private List<WeatherDay> weatherDayList;
-    private OnDayListener onDayListener;
-
-    public ForecastRecyclerViewAdapter(OnDayListener onDayListener) {
-        this.onDayListener = onDayListener;
+class ForecastRecyclerViewAdapter(private val onDayListener: OnDayListener) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var weatherDayList: List<WeatherDay?>? = null
+    fun getWeatherDayList(): List<WeatherDay?>? {
+        return weatherDayList
     }
 
-    public List<WeatherDay> getWeatherDayList() {
-        return weatherDayList;
+    fun setWeatherDayList(weatherDayList: List<WeatherDay?>?) {
+        this.weatherDayList = weatherDayList
+        notifyDataSetChanged()
     }
 
-    public void setWeatherDayList(List<WeatherDay> weatherDayList) {
-        this.weatherDayList = weatherDayList;
-        notifyDataSetChanged();
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.day_recyclerview_list_item, parent, false)
+        val backgroundColour = if (viewType == 0) R.color.light_grey else R.color.white
+        view.setBackgroundColor(parent.resources.getColor(backgroundColour, parent.context.theme))
+        return DayViewHolder(view, onDayListener)
     }
 
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.day_recyclerview_list_item, parent, false);
-
-        int backgroundColour = viewType == 0 ? R.color.light_grey : R.color.white;
-        view.setBackgroundColor(parent.getResources().getColor(backgroundColour, parent.getContext().getTheme()));
-
-        return new DayViewHolder(view, onDayListener);
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        (holder as DayViewHolder).dayDayListItem.text = Utils.getDayFromDate(
+            weatherDayList!![position]?.date
+        )
+        holder.temperatureDayListItem.text = holder.itemView.resources.getString(
+            R.string.label_temperature,
+            weatherDayList!![position]?.mintempC, weatherDayList!![position]?.mintempF
+        )
+        val requestOptions = RequestOptions()
+            .placeholder(R.drawable.ic_launcher_background)
+        Glide.with(holder.itemView.context)
+            .setDefaultRequestOptions(requestOptions)
+            .load(weatherDayList!![position]?.weatherHour?.get(0)?.weatherIconUrl?.get(0)?.value)
+            .into(holder.weatherImageDayListItem)
+        holder.temperatureLastDayListItem.text = holder.itemView.resources.getString(
+            R.string.label_temperature,
+            weatherDayList!![position]?.maxtempC ?: "-", weatherDayList!![position]?.maxtempF ?: "-"
+        )
+        Glide.with(holder.itemView.context)
+            .setDefaultRequestOptions(requestOptions)
+            .load(weatherDayList!![position]?.weatherHour?.get(11)?.weatherIconUrl?.get(0)?.value)
+            .into(holder.weatherImageLastDayListItem)
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((DayViewHolder) holder).getDayDayListItem().setText(Utils.getDayFromDate(weatherDayList.get(position).getDate()));
-        ((DayViewHolder) holder).getTemperatureDayListItem().setText(holder.itemView.getResources().getString(R.string.label_temperature,
-                weatherDayList.get(position).getMintempC(), weatherDayList.get(position).getMintempF()));
-
-        RequestOptions requestOptions = new RequestOptions()
-                .placeholder(R.drawable.ic_launcher_background);
-
-        Glide.with(holder.itemView.getContext())
-                .setDefaultRequestOptions(requestOptions)
-                .load(weatherDayList.get(position).getWeatherHour().get(0).getWeatherIconUrl().get(0).getValue())
-                .into(((DayViewHolder) holder).getWeatherImageDayListItem());
-
-        ((DayViewHolder) holder).getTemperatureLastDayListItem().setText(holder.itemView.getResources().getString(R.string.label_temperature,
-                weatherDayList.get(position).getMaxtempC(), weatherDayList.get(position).getMaxtempF()));
-
-        Glide.with(holder.itemView.getContext())
-                .setDefaultRequestOptions(requestOptions)
-                .load(weatherDayList.get(position).getWeatherHour().get(11).getWeatherIconUrl().get(0).getValue())
-                .into(((DayViewHolder) holder).getWeatherImageLastDayListItem());
+    fun getSelectedWeatherDay(position: Int): WeatherDay? {
+        return weatherDayList!![position]
     }
 
-    public WeatherDay getSelectedWeatherDay(int position) {
-        return weatherDayList.get(position);
+    override fun getItemViewType(position: Int): Int {
+        return if (weatherDayList != null) position % 2 else 0
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return weatherDayList != null
-                ? position % 2
-                : 0;
-    }
-
-    @Override
-    public int getItemCount() {
-        return weatherDayList != null ? weatherDayList.size() : 0;
+    override fun getItemCount(): Int {
+        return if (weatherDayList != null) weatherDayList!!.size else 0
     }
 }

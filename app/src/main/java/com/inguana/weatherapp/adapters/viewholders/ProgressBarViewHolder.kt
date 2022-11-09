@@ -1,14 +1,6 @@
-package com.inguana.weatherapp.adapters.viewholders;
+package com.inguana.weatherapp.adapters.viewholders
 
-import android.view.View;
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-public class ProgressBarViewHolder extends RecyclerView.ViewHolder {
-
-
-    public ProgressBarViewHolder(@NonNull View itemView) {
-        super(itemView);
-    }
-}
+class ProgressBarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

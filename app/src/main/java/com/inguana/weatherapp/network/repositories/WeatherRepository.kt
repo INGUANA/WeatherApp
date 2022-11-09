@@ -1,35 +1,32 @@
-package com.inguana.weatherapp.network.repositories;
+package com.inguana.weatherapp.network.repositories
 
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData
+import com.inguana.weatherapp.model.Area
+import com.inguana.weatherapp.network.WeatherApiClient
 
-import com.inguana.weatherapp.model.Area;
-import com.inguana.weatherapp.network.WeatherApiClient;
-
-public class WeatherRepository {
-
-    private static WeatherRepository instance;
-    private static WeatherApiClient weatherApiClient;
-
-    public static WeatherRepository getInstance() {
-        if(instance == null) {
-            instance = new WeatherRepository();
-        }
-        return instance;
+class WeatherRepository private constructor() {
+    init {
+        weatherApiClient = WeatherApiClient.instance
     }
 
-    private WeatherRepository() {
-        weatherApiClient = WeatherApiClient.getInstance();
+    fun searchWeather(searchQuery: String?) {
+        weatherApiClient!!.searchWeather(searchQuery)
     }
 
-    public void searchWeather(String searchQuery) {
-        weatherApiClient.searchWeather(searchQuery);
-    }
+    val area: MutableLiveData<Area?>?
+        get() = weatherApiClient?.area
+    val errorMessage: MutableLiveData<String>?
+        get() = weatherApiClient?.errorMessage
 
-    public MutableLiveData<Area> getArea() {
-        return weatherApiClient.getArea();
-    }
-
-    public MutableLiveData<String> getErrorMessage() {
-        return weatherApiClient.getErrorMessage();
+    companion object {
+        var instance: WeatherRepository? = null
+            get() {
+                if (field == null) {
+                    field = WeatherRepository()
+                }
+                return field
+            }
+            private set
+        private var weatherApiClient: WeatherApiClient? = null
     }
 }

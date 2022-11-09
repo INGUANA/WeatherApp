@@ -1,14 +1,6 @@
-package com.inguana.weatherapp.adapters.viewholders;
+package com.inguana.weatherapp.adapters.viewholders
 
-import android.view.View;
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-public class ErrorViewHolder extends RecyclerView.ViewHolder {
-
-
-    public ErrorViewHolder(@NonNull View itemView) {
-        super(itemView);
-    }
-}
+class ErrorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

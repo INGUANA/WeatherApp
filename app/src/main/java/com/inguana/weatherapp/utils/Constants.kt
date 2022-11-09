@@ -1,11 +1,9 @@
-package com.inguana.weatherapp.utils;
+package com.inguana.weatherapp.utils
 
-public class Constants {
-    public static final String BASE_URL = "https://api.worldweatheronline.com/premium/v1/";
-
-    public static final String API_KEY = "23a8b4a11ba6493d9e4154728210811";
-
-    public static final int NETWORK_TIMEOUT = 20000;
-    public static final String PREFS_NAME = "PREFERENCES";
-    public static final String PREF_FAVOURITE = "PREF_FAVOURITE";
+object Constants {
+    const val BASE_URL = "https://api.worldweatheronline.com/premium/v1/"
+    const val API_KEY = "ee70363a887f459f80a192228220911"
+    const val NETWORK_TIMEOUT = 20000
+    const val PREFS_NAME = "PREFERENCES"
+    const val PREF_FAVOURITE = "PREF_FAVOURITE"
 }

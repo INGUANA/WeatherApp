@@ -1,6 +1,5 @@
-package com.inguana.weatherapp.adapters.interfaces;
+package com.inguana.weatherapp.adapters.interfaces
 
-public interface OnDayListener {
-
-    void onDayClick(int position);
+interface OnDayListener {
+    fun onDayClick(position: Int)
 }

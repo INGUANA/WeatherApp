@@ -1,37 +1,28 @@
-package com.inguana.weatherapp;
+package com.inguana.weatherapp
 
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ProgressBar;
+import android.view.View
+import android.widget.FrameLayout
+import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.inguana.weatherapp.adapters.interfaces.ShowProgressBar
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-
-import com.inguana.weatherapp.adapters.interfaces.ShowProgressBar;
-
-public class BaseActivity extends AppCompatActivity implements ShowProgressBar {
+open class BaseActivity : AppCompatActivity(), ShowProgressBar {
     //====================================================
     //Base activity functionalities
     //====================================================
-
-    private ProgressBar progressBar;
-
-    @Override
-    public void setContentView(int layoutResID) {
-        CoordinatorLayout coordinatorLayout = (CoordinatorLayout) getLayoutInflater().inflate(R.layout.base_activity, null);
-        FrameLayout frameLayout = coordinatorLayout.findViewById(R.id.activityFrameLayoutBaseActivity);
-        progressBar = coordinatorLayout.findViewById(R.id.progressBarBaseActivity);
-
-        getLayoutInflater().inflate(layoutResID, frameLayout, true);
-        super.setContentView(coordinatorLayout);
+    private var progressBar: ProgressBar? = null
+    override fun setContentView(layoutResID: Int) {
+        val coordinatorLayout =
+            layoutInflater.inflate(R.layout.base_activity, null) as CoordinatorLayout
+        val frameLayout =
+            coordinatorLayout.findViewById<FrameLayout>(R.id.activityFrameLayoutBaseActivity)
+        progressBar = coordinatorLayout.findViewById(R.id.progressBarBaseActivity)
+        layoutInflater.inflate(layoutResID, frameLayout, true)
+        super.setContentView(coordinatorLayout)
     }
 
-    @Override
-    public void showProgressBar(boolean isVisible) {
-        progressBar.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+    override fun showProgressBar(isVisible: Boolean) {
+        progressBar!!.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 }
-
-
-
-

@@ -1,10 +1,7 @@
-package com.inguana.weatherapp.adapters.interfaces;
+package com.inguana.weatherapp.adapters.interfaces
 
-public interface OnAreaListener {
-
-    void onAreaClick(String areaName);
-
-    //=================================================
+interface OnAreaListener {
+    fun onAreaClick(areaName: String?) //=================================================
     //TODO: add Favourite functionality when on area search list
     //=================================================
 }

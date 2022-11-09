@@ -1,36 +1,17 @@
-package com.inguana.weatherapp.network.networkModel.response;
+package com.inguana.weatherapp.network.networkModel.response
 
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.SerializedName
 
-public class Request {
-
+class Request {
     @SerializedName("type")
-    private String type;
+    var type: String? = null
+
     @SerializedName("query")
-    private String query;
+    var query: String? = null
 
-    public Request() {
-
-    }
-
-    public Request(String type, String query) {
-        this.type = type;
-        this.query = query;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
+    constructor() {}
+    constructor(type: String?, query: String?) {
+        this.type = type
+        this.query = query
     }
 }
